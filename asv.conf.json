@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "project": "Mitiq",
+  "project_url": "https://github.com/unitaryfund/mitiq",
+  "repo": "https://github.com/unitaryfund/mitiq.git",
+  "branches": ["master"],
+  "pythons": ["3.8"],
+  "environment_type": "virtualenv",
+  "show_commit_url": "https://github.com/unitaryfund/mitiq/commit/"
+}
