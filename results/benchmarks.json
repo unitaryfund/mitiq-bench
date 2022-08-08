@@ -26,6 +26,7 @@
                 "<mitiq.observable.observable.Observable object>"
             ],
             [
+                "50",
                 "100"
             ]
         ],
@@ -35,13 +36,14 @@
         "version": "2032c784a42175922d8a82740bd9b3a00419ba560f5d79afc3e12f78fb45ebe7"
     },
     "benchmarks.track_zne": {
-        "code": "def track_zne(\n    circuit_type: str,\n    nqubits: int,\n    depth: int,\n    observable: Observable,\n) -> float:\n    \"\"\"Returns the ZNE error mitigation factor, i.e., the ratio\n\n    (error without ZNE) / (error with ZNE).\n\n    Args:\n        circuit_type: Type of benchmark circuit.\n        nqubits: Number of qubits in the benchmark circuit.\n        depth: Some proxy of depth in the benchmark circuit.\n        observable: Observable to compute the expectation value of.\n    \"\"\"\n    circuit = get_benchmark_circuit(circuit_type, nqubits, depth)\n\n    true_value = raw.execute(\n        circuit, compute_density_matrix_noiseless, observable\n    )\n    raw_value = raw.execute(\n        circuit, mitiq_cirq.compute_density_matrix, observable\n    )\n    zne_value = zne.execute_with_zne(\n        circuit,\n        mitiq_cirq.compute_density_matrix,\n        observable,\n    )\n    return np.real(abs(true_value - raw_value) / abs(true_value - zne_value))",
+        "code": "def track_zne(\n    circuit_type: str,\n    nqubits: int,\n    depth: int,\n    observable: Observable,\n    fold_method: Callable,\n) -> float:\n    \"\"\"Returns the ZNE error mitigation factor, i.e., the ratio\n\n    (error without ZNE) / (error with ZNE).\n\n    Args:\n        circuit_type: Type of benchmark circuit.\n        nqubits: Number of qubits in the benchmark circuit.\n        depth: Some proxy of depth in the benchmark circuit.\n        observable: Observable to compute the expectation value of.\n    \"\"\"\n    circuit = get_benchmark_circuit(circuit_type, nqubits, depth)\n\n    true_value = raw.execute(\n        circuit, compute_density_matrix_noiseless, observable\n    )\n    raw_value = raw.execute(\n        circuit, mitiq_cirq.compute_density_matrix, observable\n    )\n    zne_value = zne.execute_with_zne(\n        circuit,\n        mitiq_cirq.compute_density_matrix,\n        observable,\n        scale_noise=fold_method,\n    )\n    return np.real(abs(true_value - raw_value) / abs(true_value - zne_value))",
         "name": "benchmarks.track_zne",
         "param_names": [
             "circuit",
             "nqubits",
             "depth",
-            "observable"
+            "observable",
+            "fold_method"
         ],
         "params": [
             [
@@ -58,12 +60,16 @@
             ],
             [
                 "<mitiq.observable.observable.Observable object>"
+            ],
+            [
+                "<function fold_gates_at_random>",
+                "<function fold_global>"
             ]
         ],
         "timeout": 300,
         "type": "track",
         "unit": "Error mitigation factor",
-        "version": "94a9e532cc24dcdd7ba4d08bf04e48946861949aba92ce77fdf44df7a3c7ef9c"
+        "version": "9f68bb4ca3a4df668ef941789350d0532663345f5dbb0cdc45236df2ca830e8e"
     },
     "version": 2
 }
