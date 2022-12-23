@@ -1,1 +1,1 @@
-{"regressions": [["benchmarks.track_zne('rb', 2, 10, <mitiq.observable.observable.Observable object>, <function fold_global>)", "graphs/branch-master/machine-ghrunner/python-3.10/benchmarks.track_zne.json", {"python": "3.10"}, 5, 70.28210902665695, 3.552552634520068, [[null, 6300, 3.552552634520068, 70.28210902665695]]]]}
+{"regressions": []}
