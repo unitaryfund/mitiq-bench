@@ -1,1 +1,1 @@
-{"regressions": []}
+{"regressions": [["benchmarks.track_pec('rb', 2, 5, <mitiq.observable.observable.Observable object>, 50)", "graphs/branch-master/machine-ghrunner/python-3.11/benchmarks.track_pec.json", {"python": "3.11"}, 2, 100.78550813141558, 2.507189662915689, [[null, 7170, 2.507189662915689, 100.78550813141558]]]]}
